@@ -9,18 +9,14 @@
 	<name>eclipselink-staticweave-maven-plugin Maven Plugin</name>
 	<url>http://maven.apache.org</url>
 
-
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>1.7</java.version>
-		<eclipselink.version>2.5.1</eclipselink.version>
+		<java.version>1.8</java.version>
+		<eclipselink.version>2.7.4</eclipselink.version>
+        <javadoc.doclint.none>-Xdoclint:none</javadoc.doclint.none>
 	</properties>
 
-	<description>Maven Plugin for static weaving with EclipseLink.
-
-Compatible with Java 7 + 8 and Maven 3.x.</description>
-
+	<description>Maven Plugin for static weaving with EclipseLink. Compatible with Java 8+ and Maven 3.x.</description>
 
 	<scm>
 		<connection>scm:git:git@github.com:empulse-gmbh/eclipselink-static-weave-plugin.git</connection>
@@ -66,7 +62,7 @@ Compatible with Java 7 + 8 and Maven 3.x.</description>
 					not recognized correctly. -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
+				<version>3.8.0</version>
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
@@ -78,7 +74,7 @@ Compatible with Java 7 + 8 and Maven 3.x.</description>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-plugin-plugin</artifactId>
-				<version>3.2</version>
+				<version>3.5.2</version>
 				<executions>
 					<execution>
 						<id>default-descriptor</id>
@@ -100,7 +96,7 @@ Compatible with Java 7 + 8 and Maven 3.x.</description>
 			<plugin>
 				<groupId>org.sonatype.plugins</groupId>
 				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>1.6.1</version>
+				<version>1.6.8</version>
 				<extensions>true</extensions>
 				<configuration>
 					<serverId>ossrh</serverId>
@@ -112,7 +108,7 @@ Compatible with Java 7 + 8 and Maven 3.x.</description>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>2.2.1</version>
+				<version>3.0.1</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
@@ -125,13 +121,16 @@ Compatible with Java 7 + 8 and Maven 3.x.</description>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9.1</version>
+				<version>3.0.1</version>
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>
 						<goals>
 							<goal>jar</goal>
 						</goals>
+                        <configuration>
+                            <doclint>none</doclint>
+                        </configuration>
 					</execution>
 				</executions>
 			</plugin>
@@ -139,7 +138,7 @@ Compatible with Java 7 + 8 and Maven 3.x.</description>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-gpg-plugin</artifactId>
-				<version>1.5</version>
+				<version>1.6</version>
 				<executions>
 					<execution>
 						<id>sign-artifacts</id>
@@ -200,32 +199,29 @@ Compatible with Java 7 + 8 and Maven 3.x.</description>
 		<dependency>
 			<groupId>org.apache.maven</groupId>
 			<artifactId>maven-plugin-api</artifactId>
-			<version>3.1.1</version>
+			<version>3.5.4</version>
 			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.maven.plugin-tools</groupId>
 			<artifactId>maven-plugin-annotations</artifactId>
-			<version>3.2</version>
+			<version>3.5.2</version>
 			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.maven</groupId>
 			<artifactId>maven-core</artifactId>
-			<version>3.1.1</version>
+			<version>3.5.4</version>
 			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.eclipse.persistence</groupId>
-			<artifactId>eclipselink</artifactId>
+            <artifactId>org.eclipse.persistence.jpa</artifactId>
 			<version>${eclipselink.version}</version>
 			<scope>provided</scope>
 		</dependency>
-
 	</dependencies>
-
-
 </project>

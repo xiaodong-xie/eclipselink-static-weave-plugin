@@ -24,7 +24,6 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -98,14 +97,15 @@ import org.eclipse.persistence.tools.weaving.jpa.StaticWeaveProcessor;
  * 
  * @author Christoph Guse
  */
-@Mojo(name = "weave", defaultPhase = LifecyclePhase.PROCESS_CLASSES, requiresDependencyResolution = ResolutionScope.COMPILE)
+@Mojo(name = "weave", defaultPhase = LifecyclePhase.PROCESS_CLASSES, requiresDependencyResolution =
+	ResolutionScope.COMPILE)
 public class EclipselinkStaticWeaveMojo extends AbstractMojo {
 
 	/**
 	 * Give here the location of your persistence.xml file. This property is
 	 * optional. If not set the default location META-INF/persistence.xml is
 	 * used.
-	 * 
+	 *
 	 * <pre>
 	 * </pre>
 	 */
@@ -147,7 +147,7 @@ public class EclipselinkStaticWeaveMojo extends AbstractMojo {
 	 * The EclipseLink logging information is always given in Maven INFO
 	 * loglevel.
 	 */
-	@Parameter(property = "weave.logLevel", defaultValue = SessionLog.FINE_LABEL)
+	@Parameter(property = "weave.logLevel", defaultValue = "FINE")
 	private String logLevel;
 
 	/**
@@ -169,12 +169,14 @@ public class EclipselinkStaticWeaveMojo extends AbstractMojo {
 
 			List<URL> classpath = buildClassPath();
 
-			StaticWeaveProcessor weave = new StaticWeaveProcessor(source,
-					target);
+			StaticWeaveProcessor weave = new StaticWeaveProcessor(
+				source,
+				target
+			);
 			if (!classpath.isEmpty()) {
 				URLClassLoader classLoader = new URLClassLoader(
-						classpath.toArray(new URL[] {}), Thread.currentThread()
-								.getContextClassLoader());
+					classpath.toArray(new URL[]{}), Thread.currentThread()
+					.getContextClassLoader());
 				weave.setClassLoader(classLoader);
 			}
 			if (persistenceXMLLocation != null) {
@@ -197,30 +199,30 @@ public class EclipselinkStaticWeaveMojo extends AbstractMojo {
 
 	/**
 	 * Setter for the loglevel used for the EclipseLink weaver.
-	 * 
+	 *
 	 * @param logLevel
 	 */
 	public void setLogLevel(String logLevel) {
 		if (SessionLog.OFF_LABEL.equalsIgnoreCase(logLevel)
-				|| SessionLog.SEVERE_LABEL.equalsIgnoreCase(logLevel)
-				|| SessionLog.WARNING_LABEL.equalsIgnoreCase(logLevel)
-				|| SessionLog.INFO_LABEL.equalsIgnoreCase(logLevel)
-				|| SessionLog.CONFIG_LABEL.equalsIgnoreCase(logLevel)
-				|| SessionLog.FINE_LABEL.equalsIgnoreCase(logLevel)
-				|| SessionLog.FINER_LABEL.equalsIgnoreCase(logLevel)
-				|| SessionLog.FINEST_LABEL.equalsIgnoreCase(logLevel)
-				|| SessionLog.ALL_LABEL.equalsIgnoreCase(logLevel)) {
+			|| SessionLog.SEVERE_LABEL.equalsIgnoreCase(logLevel)
+			|| SessionLog.WARNING_LABEL.equalsIgnoreCase(logLevel)
+			|| SessionLog.INFO_LABEL.equalsIgnoreCase(logLevel)
+			|| SessionLog.CONFIG_LABEL.equalsIgnoreCase(logLevel)
+			|| SessionLog.FINE_LABEL.equalsIgnoreCase(logLevel)
+			|| SessionLog.FINER_LABEL.equalsIgnoreCase(logLevel)
+			|| SessionLog.FINEST_LABEL.equalsIgnoreCase(logLevel)
+			|| SessionLog.ALL_LABEL.equalsIgnoreCase(logLevel)) {
 			this.logLevel = logLevel.toUpperCase();
 		} else {
 			getLog().error(
-					"Unknown log level: " + logLevel
-							+ " default LogLevel is used.");
+				"Unknown log level: " + logLevel
+					+ " default LogLevel is used.");
 		}
 	}
 
 	/**
 	 * This helper method gets all URLs to jar files in the classpath.
-	 * 
+	 *
 	 * @return
 	 * @throws MalformedURLException
 	 */
@@ -230,7 +232,7 @@ public class EclipselinkStaticWeaveMojo extends AbstractMojo {
 		if (project == null) {
 
 			getLog().error(
-					"MavenProject is empty, unable to build ClassPath. No Models can be woven.");
+				"MavenProject is empty, unable to build ClassPath. No Models can be woven.");
 
 		} else {
 			Set<Artifact> artifacts = (Set<Artifact>) project.getArtifacts();
